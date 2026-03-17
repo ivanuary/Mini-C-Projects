@@ -1,0 +1,6 @@
+#Dev C Files
+*.o
+*.win
+*.dev
+*.exe
+*.layout
