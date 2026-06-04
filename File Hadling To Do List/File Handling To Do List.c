@@ -53,7 +53,6 @@ int main() {
 		if(menu_choice == 'A' || menu_choice == 'a'){
 			printf("\n===ADD===\n\n");
 			FILE *file = fopen("C:\\1 Coding Projects\\Github Repositories\\C Repositories\\C Mini Projects For Github\\File Hadling To Do List\\product.txt", "a");
-			
 			if(file == NULL){
 				printf("UNABLE TO READ FILE");
 				return 0;
