@@ -1,0 +1,5 @@
+prod000010,paper,100
+prod000100,ballpen,300
+prod000110,notebook,140
+prod000050,crayons,90
+prod000008,pencil,75
