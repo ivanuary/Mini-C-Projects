@@ -240,7 +240,14 @@ int main() {
 			
 		}else if(menu_choice == 'X' || menu_choice == 'x'){
 			printf("\n===EXIT===\n\n");
-			return 0;
+			printf("Are you Sure You Want to Exit?(Y/N): ");
+			char exit_confirm;
+			scanf(" %c", &exit_confirm);
+			if(exit_confirm == 'Y' || exit_confirm == 'y'){
+				return 0;
+			}else{
+				continue;
+			}
 			
 		}else{
 			printf("\n\nSOMETHING WENT WRONG\n\n");	
