@@ -40,6 +40,12 @@ int main() {
 		if(menu_choice == 'A' || menu_choice == 'a'){
 			printf("\n===ADD===\n\n");
 			FILE *file = fopen("C:\\1 Coding Projects\\Github Repositories\\C Repositories\\C Mini Projects For Github\\File Hadling To Do List\\product.txt", "a");
+			
+			if(file == NULL){
+				printf("UNABLE TO READ FILE");
+				return 0;
+			}
+			
 			char prod_code[15], prod_desc[30];
 			int avail_qty;
 			
@@ -98,13 +104,13 @@ int main() {
 					printf("\nType of Transaction (PURCHASE/SOLD): ");
 					char purchase_type[99];
 					scanf(" %s", &purchase_type);
-					if(strcmp(purchase_type, "PURCHASE") == 0){
+					if(strcmp(purchase_type, "PURCHASE") == 0 || strcmp(purchase_type, "purchase") == 0){
 						int purchase_amount;
 						printf("ENTER PURCHASE AMOUNT: ");
 						scanf("%d", &purchase_amount);
 						products[i].avail_qty = products[i].avail_qty + purchase_amount;
 						printf("\nPRODUCT AMOUNT HAS BEEN MODIFIED!\n");
-					}else if(strcmp(purchase_type, "SOLD") == 0){
+					}else if(strcmp(purchase_type, "SOLD") == 0 || strcmp(purchase_type, "sold") == 0){
 						int sold_amount;
 						printf("ENTER SOLD AMOUNT: ");
 						scanf("%d", &sold_amount);
@@ -124,6 +130,12 @@ int main() {
 				printf("\nCODE NOT FOUND\n");
 			}else{
 				FILE *file = fopen("C:\\1 Coding Projects\\Github Repositories\\C Repositories\\C Mini Projects For Github\\File Hadling To Do List\\product.txt", "w");
+				
+				if(file == NULL){
+					printf("UNABLE TO READ FILE");
+					return 0;
+				}
+				
 				for(int i=0; i<count; i++){
 					fprintf(file, "%s,%s,%d\n",products[i].prod_code, products[i].prod_description, products[i].avail_qty);
 				}
@@ -175,6 +187,11 @@ int main() {
 				
 				if(del_verify == 0){
 					FILE *file = fopen("C:\\1 Coding Projects\\Github Repositories\\C Repositories\\C Mini Projects For Github\\File Hadling To Do List\\product.txt", "w");
+					if(file == NULL){
+						printf("UNABLE TO READ FILE");
+						return 0;
+					}
+					
 					for(int i=0; i<count; i++){
 						fprintf(file, "%s,%s,%d\n",products[i].prod_code, products[i].prod_description, products[i].avail_qty);
 					}
@@ -190,6 +207,11 @@ int main() {
 		}else if(menu_choice == 'V' || menu_choice == 'v'){
 			printf("\n===VIEW===\n\n");
 			FILE *file = fopen("C:\\1 Coding Projects\\Github Repositories\\C Repositories\\C Mini Projects For Github\\File Hadling To Do List\\product.txt", "r");
+			if(file == NULL){
+				printf("UNABLE TO READ FILE");
+				return 0;
+			}
+			
 			char line[256];
 			printf("|  PROD CODE  |  PROD DESC  |  AVAIL QTY  |\n");
 			while(fgets(line, sizeof(line), file)){
@@ -221,32 +243,14 @@ int menu_verify_choice(char character){
 	int menu_verify=0;
 	switch(character){
 		case 'A':
-			menu_verify = 1;
-			break;
 		case 'a':
-			menu_verify = 1;
-			break;
 		case 'E':
-			menu_verify = 1;
-			break;
 		case 'e':
-			menu_verify = 1;
-			break;
 		case 'D':
-			menu_verify = 1;
-			break;
 		case 'd':
-			menu_verify = 1;
-			break;
 		case 'V':
-			menu_verify = 1;
-			break;
 		case 'v':
-			menu_verify = 1;
-			break;
 		case 'X':
-			menu_verify = 1;
-			break;
 		case 'x':
 			menu_verify = 1;
 			break;

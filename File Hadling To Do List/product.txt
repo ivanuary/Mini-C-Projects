@@ -3,3 +3,4 @@ prod000100,ballpen,300
 prod000110,notebook,140
 prod000050,crayons,90
 prod000008,pencil,75
+prod000175,folder,35
