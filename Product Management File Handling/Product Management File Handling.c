@@ -13,9 +13,9 @@ int menu_verify_choice(char character);
 void txt_to_array(struct Product products[99], int *count);
 
 int main() {
-	FILE *file = fopen("C:\\1 Coding Projects\\Github Repositories\\C Repositories\\C Mini Projects For Github\\File Hadling To Do List\\product.txt", "r");
+	FILE *file = fopen("C:\\1 Coding Projects\\Github Repositories\\C Repositories\\C Mini Projects For Github\\Product Management File Handling\\product.txt", "r");
 	if(file == NULL){
-		FILE *file2 = fopen("C:\\1 Coding Projects\\Github Repositories\\C Repositories\\C Mini Projects For Github\\File Hadling To Do List\\product.txt", "w");
+		FILE *file2 = fopen("C:\\1 Coding Projects\\Github Repositories\\C Repositories\\C Mini Projects For Github\\Product Management File Handling\\product.txt", "w");
 		fprintf(file2, "prod000010,paper,100\n");
 		fprintf(file2, "prod000100,ballpen,300\n");
 	    fprintf(file2, "prod000110,notebook,140\n");
@@ -52,7 +52,7 @@ int main() {
 		
 		if(menu_choice == 'A' || menu_choice == 'a'){
 			printf("\n===ADD===\n\n");
-			FILE *file = fopen("C:\\1 Coding Projects\\Github Repositories\\C Repositories\\C Mini Projects For Github\\File Hadling To Do List\\product.txt", "a");
+			FILE *file = fopen("C:\\1 Coding Projects\\Github Repositories\\C Repositories\\C Mini Projects For Github\\Product Management File Handling\\product.txt", "a");
 			if(file == NULL){
 				printf("UNABLE TO READ FILE");
 				return 0;
@@ -141,7 +141,7 @@ int main() {
 			if(transac_verify == 1){
 				printf("\nRECORD NOT FOUND\n");
 			}else{
-				FILE *file = fopen("C:\\1 Coding Projects\\Github Repositories\\C Repositories\\C Mini Projects For Github\\File Hadling To Do List\\product.txt", "w");
+				FILE *file = fopen("C:\\1 Coding Projects\\Github Repositories\\C Repositories\\C Mini Projects For Github\\Product Management File Handling\\product.txt", "w");
 				
 				if(file == NULL){
 					printf("UNABLE TO READ FILE");
@@ -198,7 +198,7 @@ int main() {
 				}
 				
 				if(del_verify == 0){
-					FILE *file = fopen("C:\\1 Coding Projects\\Github Repositories\\C Repositories\\C Mini Projects For Github\\File Hadling To Do List\\product.txt", "w");
+					FILE *file = fopen("C:\\1 Coding Projects\\Github Repositories\\C Repositories\\C Mini Projects For Github\\Product Management File Handling\\product.txt", "w");
 					if(file == NULL){
 						printf("UNABLE TO READ FILE");
 						return 0;
@@ -218,7 +218,7 @@ int main() {
 			
 		}else if(menu_choice == 'V' || menu_choice == 'v'){
 			printf("\n===VIEW===\n\n");
-			FILE *file = fopen("C:\\1 Coding Projects\\Github Repositories\\C Repositories\\C Mini Projects For Github\\File Hadling To Do List\\product.txt", "r");
+			FILE *file = fopen("C:\\1 Coding Projects\\Github Repositories\\C Repositories\\C Mini Projects For Github\\Product Management File Handling\\product.txt", "r");
 			if(file == NULL){
 				printf("UNABLE TO READ FILE");
 				return 0;
@@ -281,7 +281,7 @@ int menu_verify_choice(char character){
 }
 
 void txt_to_array(struct Product products[99], int *count){
-	FILE *file = fopen("C:\\1 Coding Projects\\Github Repositories\\C Repositories\\C Mini Projects For Github\\File Hadling To Do List\\product.txt", "r");
+	FILE *file = fopen("C:\\1 Coding Projects\\Github Repositories\\C Repositories\\C Mini Projects For Github\\Product Management File Handling\\product.txt", "r");
 
     if(file == NULL){
         printf("Error opening file!\n");
