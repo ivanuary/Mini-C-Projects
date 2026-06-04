@@ -13,13 +13,18 @@ int menu_verify_choice(char character);
 void txt_to_array(struct Product products[99], int *count);
 
 int main() {
-	FILE *file = fopen("C:\\1 Coding Projects\\Github Repositories\\C Repositories\\C Mini Projects For Github\\File Hadling To Do List\\product.txt", "w");
-    fprintf(fp, "prod000010,paper,100\n");
-	fprintf(fp, "prod000100,ballpen,300\n");
-    fprintf(fp, "prod000110,notebook,140\n");
-    fprintf(fp, "prod000050,crayons,90\n");
-    fprintf(fp, "prod000008,pencil,75\n");
-    fclose(file);
+	FILE *file = fopen("C:\\1 Coding Projects\\Github Repositories\\C Repositories\\C Mini Projects For Github\\File Hadling To Do List\\product.txt", "r");
+	if(file == NULL){
+		FILE *file2 = fopen("C:\\1 Coding Projects\\Github Repositories\\C Repositories\\C Mini Projects For Github\\File Hadling To Do List\\product.txt", "w");
+		fprintf(file2, "prod000010,paper,100\n");
+		fprintf(file2, "prod000100,ballpen,300\n");
+	    fprintf(file2, "prod000110,notebook,140\n");
+	    fprintf(file2, "prod000050,crayons,90\n");
+	    fprintf(file2, "prod000008,pencil,75\n");
+	    fclose(file2);
+	}
+	fclose(file);
+
 	
 	while(1){
 		char menu_choice;
