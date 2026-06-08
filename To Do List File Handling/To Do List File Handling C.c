@@ -2,6 +2,15 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define RED     "\x1b[31m"
+#define GREEN   "\x1b[32m"
+#define YELLOW  "\x1b[33m"
+#define BLUE    "\x1b[34m"
+#define MAGENTA "\x1b[35m"
+#define CYAN    "\x1b[36m"
+#define RESET   "\x1b[0m"
+
+
 struct Task{
 	char title[80];
 	char type[20];
@@ -10,10 +19,28 @@ struct Task{
 
 void StructTotxt(struct Task tasks[99], int count){
 	int i;
+	
 	FILE *file = fopen("tasks.txt", "w");
-	while(i<count){
-		fprintf(file, "%s,%s,%d\n", tasks[i].title,tasks[i].type,tasks[i].status);
-		i++;
+	for(i=0;i<count;i++){
+		if(tasks[i].status==0){
+			fprintf(file, "%s,%s,%d\n", tasks[i].title,tasks[i].type,tasks[i].status);
+		}
+	}
+	fclose(file);
+	
+	file = fopen("tasks.txt", "a");
+	for(i=0;i<count;i++){
+		if(tasks[i].status==1){
+			fprintf(file, "%s,%s,%d\n", tasks[i].title,tasks[i].type,tasks[i].status);
+		}
+	}
+	fclose(file);
+	
+	file = fopen("tasks.txt", "a");
+	for(i=0;i<count;i++){
+		if(tasks[i].status==2){
+			fprintf(file, "%s,%s,%d\n", tasks[i].title,tasks[i].type,tasks[i].status);
+		}
 	}
 	fclose(file);
 }
@@ -55,12 +82,12 @@ void ViewTasks(){
 	//Prints by Status
 	file = fopen("tasks.txt", "r");
 	printf("CURRENT TASKS:\n");
-	printf("|---|-----------------|-----------------|-----------------|\n");
-	printf("| # | TITLE           | TYPE            | STATUS          |\n");
-	printf("|---|-----------------|-----------------|-----------------|\n");
+	printf( "|---|-----------------|-----------------|-----------------|\n" );
+	printf( "| # | TITLE           | TYPE            | STATUS          |\n" );
+	printf( "|---|-----------------|-----------------|-----------------|\n" );
 	while(fscanf(file,"%[^,],%[^,],%d\n",title,type, &status) == 3){
 		if(status == 0){
-			printf("| %d | %-15s | %-15s | PENDING         |\n",task_counter,title, type);
+			printf(RED "| %d | %-15s | %-15s | PENDING         |\n" RESET,task_counter,title, type);
 			task_counter++;
 		}
 	}
@@ -69,7 +96,7 @@ void ViewTasks(){
 	file = fopen("tasks.txt", "r");
 	while(fscanf(file,"%[^,],%[^,],%d\n",title,type, &status) == 3){
 		if(status == 1){
-			printf("| %d | %-15s | %-15s | IN PROGRESS     |\n",task_counter,title, type);
+			printf(YELLOW "| %d | %-15s | %-15s | IN PROGRESS     |\n" RESET,task_counter,title, type);
 			task_counter++;
 		}
 	}
@@ -78,11 +105,12 @@ void ViewTasks(){
 	file = fopen("tasks.txt", "r");
 	while(fscanf(file,"%[^,],%[^,],%d\n",title,type, &status) == 3){
 		if(status == 2){
-			printf("| %d | %-15s | %-15s | DONE            |\n",task_counter,title, type);
+			printf(GREEN "| %d | %-15s | %-15s | DONE            |\n" RESET,task_counter,title, type);
+			task_counter++;
 		}
 	}
 	fclose(file);
-	printf("|---|-----------------|-----------------|-----------------|");
+	printf( "|---|-----------------|-----------------|-----------------|" );
 	
 	return;
 }
@@ -118,7 +146,7 @@ int main() {
 			scanf("%d", &menu_choice);
 			
 			char task_title[80]; char str_type[20]; char exit_choice;
-			int num_type; int task_edit; int status_num; int count;
+			int num_type; int task_edit; int status_num; int count; int task_del;
 			
 			switch(menu_choice){
 				case 1: //View
@@ -164,6 +192,11 @@ int main() {
 					fclose(file);
 					
 					printf("TASK ADDED!");
+					
+					txtToStruct(tasks);
+					count = TaskCounter();
+					StructTotxt(tasks, count);
+					
 					menu_loop = 0;
 					break;
 					
@@ -206,6 +239,31 @@ int main() {
 					break;
 				case 4: //Delete
 					ViewTasks();
+					txtToStruct(tasks);
+					count = TaskCounter();
+					
+					while(1){
+						printf("\nENTER TASK DELETE: ");
+						scanf("%d", &task_del);	
+						if(task_del > count || task_del < 1){
+							printf("\nINVALID INPUT, TRY AGAIN\n");
+						}else{
+							break;
+						}
+					}
+					
+					for(int i=0; i<count; i++){
+						if(i == task_del-1){
+							for(int j=i; j<count-1; j++){
+								tasks[j].status = tasks[j+1].status;
+								strcpy(tasks[j].title, tasks[j+1].title);
+								strcpy(tasks[j].type, tasks[j+1].type);
+							}
+						}
+					}
+					count--;
+					StructTotxt(tasks, count);
+					printf("\nTASK HAS BEEN DELETED!");
 					menu_loop = 0;
 					break;
 				case 5: //Exit
@@ -227,7 +285,10 @@ int main() {
 					printf("\nINVALID INPUT, TRY AGAIN\n");
 			}
 		}
-		printf("\n\n");
+		printf("\n\nPRESS ENTER TO CONTINUE: ");
+		getchar();
+		getchar();
+		system("cls");
 	}
 	return 0;
 }
